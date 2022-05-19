@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+    <div class="header">
+        <div class="container-fluid">
+            <nav class="navbar navbar-expand-md ">
+                <a style="font-size: 30px; color: rgb(196, 17, 62);" class="navbar-brand" href="/admin">
+                    <img onclick="" src="./img/giphy.gif" style="width: 80px;height: 80px;border-radius: 50%;margin-right: 10px;" alt="Icon">
+                    MUSIC
+                </a>
+                <div>
+                    <ul class="nav nav-pills justify-content-end">
+                        <li class="nav-item">
+                            <buttons style="margin-right: 10px;" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent2" aria-controls="navbarSupportedContent2" aria-expanded="false" aria-label="Toggle navigation">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                                </svg>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+              
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/">Trang chủ</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="/admin/create">Thêm nhạc</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Setting</a>
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent2">
+                    <ul class="nav justify-content-end">
+                        <li class="nav-item">
+                            <a style="font-weight: bolder;" onclick="alert('Function is updating');return false;" class="nav-link" href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-door-open-fill" viewBox="0 0 16 16">
+                                    <path d="M1.5 15a.5.5 0 0 0 0 1h13a.5.5 0 0 0 0-1H13V2.5A1.5 1.5 0 0 0 11.5 1H11V.5a.5.5 0 0 0-.57-.495l-7 1A.5.5 0 0 0 3 1.5V15H1.5zM11 2h.5a.5.5 0 0 1 .5.5V15h-1V2zm-2.5 8c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1z"/>
+                                </svg>
+                                <span style="vertical-align: 5px;text-decoration: underline; font-size: 20px;">Log in</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a style="font-weight: bolder;" onclick="alert('Function is updating');return false;" class="nav-link" href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+                                </svg>
+                                <span style="vertical-align: 5px;text-decoration: underline; font-size: 20px;">Sign up</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <hr>
+            <form method="GET" action="/admin" class="form-inline">
+                <div class="input-group mb-4 col-md-12">
+                    <label for="name" class="mr-sm-2">Search Name : </label>
+                    <input id="name" name="name" type="text" class="form-control" value="<%= textsearch %>" placeholder="Tên bài hát!">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Tìm bài hát</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <table class="table mt-4">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Tên nhạc</th>
+                    <th scope="col">Tác giả</th>
+                    <th scope="col">Phong cách</th>
+                    <th scope="col">Thời lượng</th>
+                    <th scope="col">Tên file mp3</th>
+                    <!-- <th scope="col" colspan="2">Thời gian tạo</th> -->
+                </tr>
+            </thead>
+            <tbody>
+                <%var i = 1 %>
+                <% result.forEach(function(a) { %>
+                <tr>
+                    <td><%= i++ %></td>
+                    <td><%= a.name %></td>
+                    <td><%= a.author %></td>
+                    <td><%= a.style %></td>
+                    <td><%= a.duration %></td>
+                    <td><%= a.track %></td>
+                    <!-- <td><%= a.createdAt %></td> -->
+                    <td>
+                        <a href="/admin/update/<%= a._id %>" class="btn btn-link">Repair</a>
+                        <!-- <a href="/admin/delete/<%= a._id %>" class="btn btn-link" style="color: red;">Delete</a> -->
+                        <a href="" class="btn btn-link" data-toggle="modal" data-id="<%=a._id%>" data-target="#delete-music-modal" style="color: red">Delete</a>
+                    </td>
+                </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div> 
+
+    <!-- {{!-- Confirm delete music --}} -->
+<div id="delete-music-modal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Xóa bài hát?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Bạn chắc chắn muốn xóa bài hát này?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+        <button id="btn-delete-music" type="button" class="btn btn-danger">Xóa bỏ</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- {{!-- Delete hidden form --}} -->
+<form name="delete-music-form" method="POST"></form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var musicId;
+        var deleteForm = document.forms['delete-music-form'];
+        var btnDeleteMusic = document.getElementById('btn-delete-music');
+
+        // When dialog confirm clicked
+        $('#delete-music-modal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            musicId = button.data('id');
+        });
+        
+        // When delete music btn clicked
+        btnDeleteMusic.onclick = function () {
+            deleteForm.action = '/admin/delete/' + musicId + '?_method=DELETE';
+            deleteForm.submit();
+        }
+    });
+</script>
+
+
+    <%- include("../head_script/script") %> 
+</body>
+</html>

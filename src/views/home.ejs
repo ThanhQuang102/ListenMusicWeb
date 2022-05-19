@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Music Online</title>
+    <style>
+        body {
+            background-color: #0f0f1b;
+            /*background-color: rgb(14, 12, 12);*/
+            font-family: 'Source Sans Pro', sans-serif;
+            font-weight: normal;
+            color: #fff;
+            min-height: 1000px;
+            letter-spacing: .6px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1140px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 50px;
+            font-weight: 400;
+            margin-bottom: 0;
+        }
+        
+        header p {
+            color: white;
+            line-height: 26px;
+            font-weight: 300;
+            padding: 0 130px;
+        }
+        
+        nav {
+            color: white;
+            display: inline-block;
+            width: 100%;
+            border-top: 1px solid;
+        }
+        
+        nav ul {
+            padding-left: 0;
+        }
+        
+        nav ul.left {
+            float: left;
+        }
+        
+        nav ul.right {
+            float: right;
+        }
+        
+        nav ul li {
+            list-style: none;
+            display: inline-block;
+            margin-right: 25px;
+        }
+        
+        nav ul li:last-child {
+            margin-right: 0;
+        }
+        
+        nav ul li a {
+            text-decoration: none !important;
+            color: #fff;
+            text-decoration-style: none;
+        }
+        
+        nav ul li a:hover {
+            color: #7270ca;
+            text-shadow: 0 5px 25px rgb(114 112 202 / .5), 0 0 25px rgb(114 112 202 / .5);
+            /*background: rgb(114 112 202 / .2);*/
+        }
+        
+        .autoplay_btn label {
+            display: flex;
+            align-items: center;
+        }
+        
+        .autoplay_btn h5 {
+            margin: 0;
+            font-weight: 500;
+        }
+        
+        .autoplay_btn span {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 25px;
+            border: 2px solid #414072;
+            border-radius: 50px;
+            margin-left: 5px;
+            transition: all ease 0.5s;
+        }
+        
+        .autoplay_btn span::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 19px;
+            background: #414072;
+            border-radius: 50px;
+            top: 1px;
+            left: 4px;
+            transition: all ease 0.5s;
+        }
+        
+        .autoplay_btn input:checked~span {
+            border-color: #7270ca;
+            box-shadow: 0 5px 25px rgb(114 112 202 / .5), 0 0 25px rgb(114 112 202 / .5);
+            background: rgb(114 112 202 / .2);
+        }
+        
+        .autoplay_btn input:checked~span::before {
+            left: 34px;
+            top: 1px;
+            box-shadow: 0 5px 25px rgb(114 112 202 / .5), 0 0 25px rgb(114 112 202 / .5);
+            background: #7270ca;
+        }
+        
+        .autoplay_btn input {
+            display: none;
+        }
+        
+        .body_content {
+            margin-top: 30px;
+        }
+        
+        .body_content .title {
+            background: #414072;
+            color: #fff;
+            padding: 20px 5px;
+            border-radius: 10px;
+            display: flex;
+        }
+        
+        .body_content .title span {
+            font-size: 20px;
+        }
+        
+        .body_content .title span:nth-child(1),
+        .body_content .list_block span:nth-child(1) {
+            width: 5%;
+        }
+        
+        .body_content .title span:nth-child(2),
+        .body_content .list_block span:nth-child(2) {
+            width: 15%;
+        }
+        
+        .body_content .title span:nth-child(3),
+        .body_content .list_block span:nth-child(3) {
+            width: 16%;
+        }
+        
+        .body_content .title span:nth-child(4),
+        .body_content .list_block span:nth-child(4) {
+            width: 18%;
+        }
+        
+        .body_content .title span:nth-child(5) {
+            width: 10%;
+        }
+        
+        .body_content .list_block span:nth-child(5) {
+            width: 1%
+        }
+        
+        .body_content .title span:nth-child(6),
+        .body_content .list_block span:nth-child(6) {
+            width: 10%;
+        }
+        
+        .body_content .list_block {
+            position: relative;
+            padding: 20px 5px;
+            background: #000;
+            border: 1px solid transparent;
+            border-radius: 10px;
+            margin-top: 25px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .body_content .list_block span {
+            font-size: 16px;
+            font-weight: 400;
+        }
+        
+        .body_content .list_block .download_btn {
+            position: absolute;
+            right: 30px;
+        }
+        
+        .body_content .list_block .download_btn:hover {
+            opacity: .7;
+        }
+        /*BEAT ANIMATION*/
+        
+        .body_content .beat_animation ul {
+            padding: 0;
+            margin: 0;
+            text-align: center;
+        }
+        
+        .body_content .beat_animation ul li {
+            list-style: none;
+            height: 40px;
+            width: 3px;
+            background-color: #fff;
+            display: inline-block;
+            margin: 0 5px;
+            transform-origin: bottom;
+            opacity: .1;
+            animation: beat 1s linear 0s infinite;
+            animation-play-state: paused;
+        }
+        
+        @keyframes beat {
+            50% {
+                transform: scaleY(0);
+            }
+        }
+        
+        .body_content .beat_animation li:nth-child(1) {
+            animation-delay: .2s;
+        }
+        
+        .body_content .beat_animation li:nth-child(2) {
+            animation-delay: .4s;
+        }
+        
+        .body_content .beat_animation li:nth-child(3) {
+            animation-delay: .3s;
+        }
+        
+        .body_content .list_block.isPlaying {
+            border: 1px solid #4b4980;
+            box-shadow: 0 5px 25px #7471cc5e, 0 0 15px #7471cc5e;
+        }
+        /*nut play*/
+        
+        .body_content span.play_btn {
+            text-align: center;
+        }
+        
+        .body_content span.play_btn img {
+            cursor: pointer;
+            border-radius: 50px;
+            transition: all ease 0.5s;
+        }
+        
+        .body_content span.play_btn .pause_icon {
+            display: none;
+        }
+        
+        .body_content .list_block.isPlaying span.play_btn img {
+            box-shadow: 0 5px 25px #7471cc, 0 0 15px #7471cc;
+        }
+        /*an thanh track choi nhac*/
+        
+        .body_content .list_block .track {
+            /* display: none; */
+            padding-right: 70px;
+        }
+        
+        .Category {
+            width: 175px;
+            height: 230px;
+            background-color: rgb(65, 33, 65);
+            margin-right: 10px;
+            float: left;
+        }
+        
+        .Category :hover {
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        .Category p {
+            text-align: center;
+        }
+        
+        .Category img {
+            margin-left: 10px;
+            margin-top: 5px;
+            width: 155px;
+            height: 200px;
+        }
+        
+        #slideshow {
+            margin: 10px 0px 30px 0px !important;
+            overflow: hidden;
+            height: 300px;
+            width: 100%;
+            margin: 0 auto;
+        }
+        
+        .slide-wrapper {
+            width: 3330px;
+            -webkit-animation: slide 14s ease infinite;
+        }
+        
+        .slide {
+            float: left;
+            height: 510px;
+            width: 1110px;
+        }
+        
+        @-webkit-keyframes slide {
+            20% {
+                margin-left: -0px;
+            }
+            60% {
+                margin-left: -1110px;
+            }
+            100% {
+                margin-left: -2220px;
+            }
+        }
+        
+        a {
+            color: #fff;
+        }
+        
+        a:hover {
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="wrapper">
+
+        <header style="height: 70px; margin: 30px 0px 5px 0px; padding-top: 30px; padding-left: 170px;">
+            <a href="http://localhost:3000">
+                <img style="width:70px; height: 70px; position: inherit; float: left; margin: -30px 0px 0px 20px;" src="../img/logo.png" alt="">
+                <span style=" text-align: left; padding: 0px; float: left; color: #fff;">Music Online</span></a>
+            <form method="GET" action="/site/search" class="form-inline">
+                <div class="input-group mb-4 col-md-6" style="margin:-7px 0px 20px 0px !important; width: 200px;">
+                    <input id="name" name="name" type="text" class="form-control" value="" placeholder="<%= err %>">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Tìm bài hát</button>
+                    </div>
+                </div>
+            </form>
+        </header>
+        <hr style="border: 1px solid #fff">
+        <div class="container">
+            <div id="slideshow">
+                <div class="slide-wrapper">
+                    <div class="slide"><img src="../img/slide3.jpg"></div>
+                    <div class="slide"><img src="../img/slide2.jpg"></div>
+                    <div class="slide"><img src="../img/slide1.jpg"></div>
+                </div>
+            </div>
+            <div class="body" style="height: 500px;">
+                <a href="http://localhost:3000/site/style?style=Nhạc Vàng">
+                    <div class="Category">
+                        <img src="../img/nhạc vàng.jpg" alt="">
+                        <p>Nhạc Vàng</p>
+                    </div>
+                </a>
+                <a href="http://localhost:3000/site/style?style=Nhạc Trẻ">
+                    <div class="Category">
+                        <img src="../img/nhạc trẻ.jpg" alt="">
+                        <p>Nhạc Trẻ</p>
+                    </div>
+                </a>
+                <a href="http://localhost:3000/site/style?style=Nhạc Cách Mạng">
+                    <div class="Category">
+                        <img src="../img/nhạc cách mạng.jpg" alt="">
+                        <p>Nhạc Cách Mạng</p>
+                    </div>
+                </a>
+                <a href="http://localhost:3000/site/style?style=Nhạc Chế">
+                    <div class="Category">
+                        <img src="../img/nhạc chế.jpg" alt="">
+                        <p>Nhạc Chế</p>
+                    </div>
+                </a>
+                <a href="http://localhost:3000/site/style?style=Nhạc Bất Hủ">
+                    <div class="Category">
+                        <img src="../img/nhạc bất hủ.jpg" alt="">
+                        <p>Nhạc Bất Hủ</p>
+                    </div>
+                </a>
+                <a href="http://localhost:3000/site/style?style=Nhạc Hot">
+                    <div class="Category">
+                        <img src="../img/nhạc hot.jpg" alt="">
+                        <p>Nhạc Hot</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <footer style="margin-top: 20px; box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5); padding: 10px;">
+            <div class="row">
+                <div class="col-ms-2" style="margin-right: 150px;"></div>
+                <div class="col-sm-3">
+                    <p>Giới Thiệu:</p>
+                    <p>Đây là trang nghe nhạc online.</p>
+                </div>
+                <div class="col-sm-3">
+                    <p>Nhà Phát Hành:</p>
+                    <p>Thanh Quang bolero <br> Minh Văn Mai <br> Hằng Vok <br> Hảo Minh Lê <br> Nguyễn Đăng Khoa</p>
+                </div>
+                <div class="col-sm-4">
+                    <p>Liên hệ:</p>
+                    <p><img src="../img/mail.png" style="width: 30px; height: 30px; margin-top: -3px;"> Email: Music_online@gmail.com</p>
+                    <p><img src="../img/sđt.jpg" style="width: 30px; height: 30px; margin-top: -3px;"> SĐT: 0351231234</p>
+                    <p><img src="../img/facebook.png" style="width: 30px; height: 30px;margin-top: -3px;"> Facebook: http://facebook.com/Musiconline</p>
+                </div>
+                <div class="col-ms-2"></div>
+            </div>
+        </footer>
+
+
+    </div>
+
+
+</body>
+
+</html>

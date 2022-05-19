@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>
+        <%= title %>
+    </title>
+    <style>
+        body {
+            background-color: #0f0f1b;
+            /*background-color: rgb(14, 12, 12);*/
+            font-family: 'Source Sans Pro', sans-serif;
+            font-weight: normal;
+            color: #fff;
+            min-height: 1000px;
+            letter-spacing: .6px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1500px;
+            min-height: 500px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 50px;
+            font-weight: 400;
+            margin-bottom: 0;
+        }
+        
+        header p {
+            color: white;
+            line-height: 26px;
+            font-weight: 300;
+            padding: 0 130px;
+        }
+        
+        nav {
+            color: white;
+            display: inline-block;
+            width: 100%;
+            border-top: 1px solid;
+        }
+        
+        nav ul {
+            padding-left: 0;
+        }
+        
+        nav ul.left {
+            float: left;
+        }
+        
+        nav ul.right {
+            float: right;
+        }
+        
+        nav ul li {
+            list-style: none;
+            display: inline-block;
+            margin-right: 25px;
+        }
+        
+        nav ul li:last-child {
+            margin-right: 0;
+        }
+        
+        nav ul li a {
+            text-decoration: none !important;
+            color: #fff;
+            text-decoration-style: none;
+        }
+        
+        nav ul li a:hover {
+            color: #7270ca;
+            text-shadow: 0 5px 25px rgb(114 112 202 / .5), 0 0 25px rgb(114 112 202 / .5);
+            /*background: rgb(114 112 202 / .2);*/
+        }
+        
+        .autoplay_btn label {
+            display: flex;
+            align-items: center;
+        }
+        
+        .autoplay_btn h5 {
+            margin: 0;
+            font-weight: 500;
+        }
+        
+        .autoplay_btn span {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 25px;
+            border: 2px solid #414072;
+            border-radius: 50px;
+            margin-left: 5px;
+            transition: all ease 0.5s;
+        }
+        
+        .autoplay_btn span::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 19px;
+            background: #414072;
+            border-radius: 50px;
+            top: 1px;
+            left: 4px;
+            transition: all ease 0.5s;
+        }
+        
+        .autoplay_btn input:checked~span {
+            border-color: #7270ca;
+            box-shadow: 0 5px 25px rgb(114 112 202 / .5), 0 0 25px rgb(114 112 202 / .5);
+            background: rgb(114 112 202 / .2);
+        }
+        
+        .autoplay_btn input:checked~span::before {
+            left: 34px;
+            top: 1px;
+            box-shadow: 0 5px 25px rgb(114 112 202 / .5), 0 0 25px rgb(114 112 202 / .5);
+            background: #7270ca;
+        }
+        
+        .autoplay_btn input {
+            display: none;
+        }
+        
+        .body_content {
+            margin-top: 30px;
+        }
+        
+        .body_content .title {
+            background: #414072;
+            color: #fff;
+            padding: 20px 5px;
+            border-radius: 10px;
+            display: flex;
+        }
+        
+        .body_content .title span {
+            font-size: 20px;
+        }
+        
+        .body_content .title span:nth-child(1),
+        .body_content .list_block span:nth-child(1) {
+            width: 5%;
+        }
+        
+        .body_content .title span:nth-child(2),
+        .body_content .list_block span:nth-child(2) {
+            width: 15%;
+        }
+        
+        .body_content .title span:nth-child(3),
+        .body_content .list_block span:nth-child(3) {
+            width: 16%;
+        }
+        
+        .body_content .title span:nth-child(4),
+        .body_content .list_block span:nth-child(4) {
+            width: 18%;
+        }
+        
+        .body_content .title span:nth-child(5) {
+            width: 10%;
+        }
+        
+        .body_content .list_block span:nth-child(5) {
+            width: 1%
+        }
+        
+        .body_content .title span:nth-child(6),
+        .body_content .list_block span:nth-child(6) {
+            width: 10%;
+        }
+        
+        .body_content .list_block {
+            position: relative;
+            padding: 20px 5px;
+            background: #000;
+            border: 1px solid transparent;
+            border-radius: 10px;
+            margin-top: 25px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .body_content .list_block span {
+            font-size: 16px;
+            font-weight: 400;
+        }
+        
+        .body_content .list_block .download_btn {
+            position: absolute;
+            right: 30px;
+        }
+        
+        .body_content .list_block .download_btn:hover {
+            opacity: .7;
+        }
+        /*BEAT ANIMATION*/
+        
+        .body_content .beat_animation ul {
+            padding: 0;
+            margin: 0;
+            text-align: center;
+        }
+        
+        .body_content .beat_animation ul li {
+            list-style: none;
+            height: 40px;
+            width: 3px;
+            background-color: #fff;
+            display: inline-block;
+            margin: 0 5px;
+            transform-origin: bottom;
+            opacity: .1;
+            animation: beat 1s linear 0s infinite;
+            animation-play-state: paused;
+        }
+        
+        @keyframes beat {
+            50% {
+                transform: scaleY(0);
+            }
+        }
+        
+        .body_content .beat_animation li:nth-child(1) {
+            animation-delay: .2s;
+        }
+        
+        .body_content .beat_animation li:nth-child(2) {
+            animation-delay: .4s;
+        }
+        
+        .body_content .beat_animation li:nth-child(3) {
+            animation-delay: .3s;
+        }
+        
+        .body_content .list_block.isPlaying {
+            border: 1px solid #4b4980;
+            box-shadow: 0 5px 25px #7471cc5e, 0 0 15px #7471cc5e;
+        }
+        /*nut play*/
+        
+        .body_content span.play_btn {
+            text-align: center;
+        }
+        
+        .body_content span.play_btn img {
+            cursor: pointer;
+            border-radius: 50px;
+            transition: all ease 0.5s;
+        }
+        
+        .body_content span.play_btn .pause_icon {
+            display: none;
+        }
+        
+        .body_content .list_block.isPlaying span.play_btn img {
+            box-shadow: 0 5px 25px #7471cc, 0 0 15px #7471cc;
+        }
+        /*an thanh track choi nhac*/
+        
+        .body_content .list_block .track {
+            /* display: none; */
+            padding-right: 70px;
+        }
+        /*Play*/
+        
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap');
+        .player {
+            width: 350px;
+            height: 450px;
+            position: relative;
+            top: 45%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin: 10px 0 0 0;
+            box-shadow: 3px 3px 50px rgba(0, 0, 0, 0.5), -3px -3px 50px rgba(0, 0, 0, 0.5);
+        }
+        
+        .container {
+            width: 90%;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        
+        .top-icons {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+        }
+        
+        .top-icons a {
+            color: #fff;
+            font-size: 1.3em;
+        }
+        
+        .top-icons a:hover {
+            color: #b9b6b6;
+            transition: all 0.2s ease-in-out;
+        }
+        
+        .img {
+            border-top: 3px solid #fff;
+            border-radius: 50%;
+        }
+        
+        .img img {
+            margin: 50px 0 0 43px;
+            width: 70%;
+            border-radius: 50%;
+            transition: all 0.4s ease-in-out;
+            cursor: pointer;
+        }
+        
+        .img img:hover {
+            box-shadow: 3px 3px 50px rgba(0, 0, 0, 0.5), -3px -3px 50px rgba(0, 0, 0, 0.5);
+        }
+        
+        .text {
+            text-align: center;
+            margin: 10px 0;
+        }
+        
+        .text h1 {
+            font-size: 3em;
+        }
+        
+        .text h4 {
+            font-size: 1.4em;
+        }
+        
+        .time {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0 0 0;
+        }
+        
+        .time a {
+            color: #fff;
+            font-size: 1.1em;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .seek {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            margin: 5px 0;
+            position: relative;
+        }
+        
+        .fill {
+            width: 65%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.7);
+        }
+        
+        .handle {
+            width: 10px;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            position: absolute;
+            top: -3px;
+            right: 120px;
+        }
+        
+        .btns {
+            margin: 40px 0;
+            text-align: center;
+        }
+        
+        .btns button {
+            color: #fff;
+            font-size: 1.8em;
+            transition: all 0.3s ease-in-out;
+        }
+        
+        .btns button:hover {
+            color: #b9b6b6;
+        }
+        
+        .btns button:nth-child(1),
+        .btns button:nth-child(5) {
+            opacity: 0.6;
+        }
+        
+        .btns button:nth-child(1):hover,
+        .btns button:nth-child(5):hover {
+            opacity: 1;
+            color: #fff;
+        }
+        
+        .btns button:nth-child(3) {
+            border: 2px solid #fff;
+            padding: 15px 22px;
+            border-radius: 50%;
+        }
+        
+        .btns button {
+            font-size: 1.8em;
+            font-weight: bold;
+            font-family: 'Nunito', sans-serif;
+            text-align: center;
+            background: no-repeat;
+            border: none;
+            height: 70px;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+        
+        a:hover {
+            text-decoration: none
+        }
+        
+        @keyframes xoaytron {
+            from {
+                transform: rotate(0deg)
+            }
+            to {
+                transform: rotate(360deg)
+            }
+        }
+    </style>
+    <script>
+        var id = null;
+
+        function myMove() {
+            var elem = document.getElementById("animate");
+            var pos = 0;
+            clearInterval(id);
+            id = setInterval(frame, 5);
+
+            function frame() {
+                if (pos == 350) {
+                    clearInterval(id);
+                } else {
+                    pos++;
+                    elem.style.top = pos + "px";
+                    elem.style.left = pos + "px";
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+
+    <div class="wrapper">
+
+
+        <header style="height: 70px; margin: 30px 0px 5px 0px; padding-top: 30px; padding-left: 170px;">
+            <a href="http://localhost:3000">
+                <img style="width:70px; height: 70px; position: inherit; float: left; margin: -30px 0px 0px 20px;" src="../img/logo.png" alt="">
+                <span style=" text-align: left; padding: 0px; float: left; color:#fff">Music Online</span></a>
+            <form method="GET" action="/site/search" class="form-inline">
+                <div class="input-group mb-4 col-md-6" style="margin:-7px 0px 20px 0px !important; width: 200px;">
+                    <input id="name" name="name" type="text" class="form-control" value="" placeholder="Tên bài hát!">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Tìm bài hát</button>
+                    </div>
+                </div>
+            </form>
+        </header>
+        <hr style="border: 1px solid #fff">
+        <div class="container">
+            <div class="body_content">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <section class="player">
+                                    <div class="container">
+
+                                        <!-- ================ Top Icons ================ -->
+
+                                        <div class="top-icons">
+                                            <a href="#"><i class="far fa-heart"></i></a>
+                                            <a href="#"><i class="fa fa-plus"></i></a>
+                                        </div>
+
+                                        <!-- ================ img ================ -->
+
+                                        <div class="img">
+                                            <img style="width:200px; height: 200px; animation: xoaytron infinite 8s linear" src="../img/<%= result.image %>" alt="">
+                                        </div>
+
+                                        <!-- ================ Text ================ -->
+
+                                        <div class="text">
+                                            <h3 id="music-name">
+                                                <%= result.name %>
+                                            </h3>
+                                        </div>
+
+                                        <!-- ================ Time ================ 
+
+							        <div class="time">
+							          <a href="#">1:58</a>
+							          <a href="#">3:00</a>
+							        </div>
+
+							        ================ Seek Bar ================ 
+
+							        <div class="seek">
+							          <div class="fill"></div>
+							          <div class="handle"></div>
+							        </div> -->
+                                        <div style="align-items: center; margin-left: -8px">
+                                            <audio controls autoplay><source src="../songs/<%= result.track %>.mp3" type="audio/mpeg"></audio>
+                                        </div>
+                                        <!-- ================ Play Buttons ================ 
+
+							        <div class="btns">
+							          <button class="fa fa-retweet"> </button>
+							          <button class="fa fa-backward"> </button>
+							          <button class="fa fa-pause"> </button>
+							          <button class="fa fa-forward"> </button>
+							          <button class="fa fa-random"> </button>
+							        </div>-->
+                                    </div>
+                                </section>
+
+                            </div>
+                            <div class="col-sm-7">
+                                <img style="width: 200px;" src="../img/<%= result.image %>" alt="">
+                                <p>
+                                    <%= result.name %>
+                                </p>
+                                <p>Lời bài hát:</p>
+                                <p>
+                                    <%= result.sub %>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4" style="overflow: auto;">
+                        <h4>Có thể bạn Quan Tâm</h4>
+                        <% list.forEach(function(item) { %>
+                            <div>
+                                <a href="http://localhost:3000/site/detail?name=<%= item.name %>">
+                                    <div style="box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5); height: 36px; background-color: darkslategray; border-radius: 5px; ">
+                                        <div class="audio-hinh" style="float: left; box-shadow: inset black; margin: 3px 0px 0px 3px;">
+                                            <img style="width: 30px; height: 30px;" src="../img/<%= item.image %>">
+                                        </div>
+                                        <div style=" color:#fff ;">
+                                            <p id="name" style="padding: 6px 0px 0px 20px; white-space: nowrap; margin-top: 2px;  width: 300px; height: 30px;  text-overflow: ellipsis; overflow: hidden;">
+                                                <%= item.name %> -
+                                                    <%= item.author %>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <% }); %>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer style="margin-top: 20px; box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5); padding: 10px;">
+            <div class="row">
+                <div class="col-ms-2" style="margin-right: 150px;"></div>
+                <div class="col-sm-3">
+                    <p>Giới Thiệu:</p>
+                    <p>Đây là trang nghe nhạc online. </p>
+                </div>
+                <div class="col-sm-3">
+                    <p>Nhà Phát Hành:</p>
+                    <p>Thanh Quang bolero <br> Minh Văn Mai <br> Hằng Vok <br> Hảo Minh Lê <br> Nguyễn Đăng Khoa</p>
+                </div>
+                <div class="col-sm-4">
+                    <p>Liên hệ:</p>
+                    <p><img src="../img/mail.png" style="width: 30px; height: 30px; margin-top: -3px;"> Email: Music_online@gmail.com</p>
+                    <p><img src="../img/sđt.jpg" style="width: 30px; height: 30px; margin-top: -3px;"> SĐT: 0351231234</p>
+                    <p><img src="../img/facebook.png" style="width: 30px; height: 30px;margin-top: -3px;"> Facebook: http://facebook.com/Musiconline</p>
+                </div>
+                <div class="col-ms-2"></div>
+            </div>
+        </footer>
+
+    </div>
+
+
+
+    <!-- JQUERY CDN LINK -->
+
+
+</body>
